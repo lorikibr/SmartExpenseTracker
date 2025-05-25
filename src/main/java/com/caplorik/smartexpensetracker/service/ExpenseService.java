@@ -26,4 +26,15 @@ public class ExpenseService {
     public void deleteExpense(Long id) {
         repo.deleteById(id);
     }
+
+    public Expense updateExpense(Long id, Expense updatedExpense) {
+        return repo.findById(id)
+                .map(expense -> {
+                    expense.setTitle(updatedExpense.getTitle());
+                    expense.setAmount(updatedExpense.getAmount());
+                    expense.setDate(updatedExpense.getDate());
+                    return repo.save(expense);
+                })
+                .orElse(null);
+    }
 }

@@ -2,6 +2,7 @@ package com.caplorik.smartexpensetracker.controller;
 
 import com.caplorik.smartexpensetracker.model.Expense;
 import com.caplorik.smartexpensetracker.service.ExpenseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,5 +31,15 @@ public class ExpenseController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.deleteExpense(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @RequestBody Expense updatedExpense) {
+        Expense expense = service.updateExpense(id, updatedExpense);
+        if (expense != null) {
+            return ResponseEntity.ok(expense);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

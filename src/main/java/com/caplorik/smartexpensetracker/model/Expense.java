@@ -18,4 +18,5 @@ public class Expense {
     private String title;
     private double amount;
     private LocalDate date;
+    private String category;
 }
